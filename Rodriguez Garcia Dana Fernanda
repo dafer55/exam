@@ -1,345 +1,329 @@
-1.	Ejercicio uno.
-Todos los datos serán recopilados de alumnos y docentes del Tesoem, dando un total de 90 alumnos y 27 maestros tomar evidencias con fotos
-//creamos una tabla de alumnos y otra de cada una de las carreras en donde se va a declarar cada dato que se va a insertar en dicha tabla//
-//usamos un constraint en el cual especifica un valor especifico que evita mandar datos erróneos//
-// el unique nos indica que el valor insertado va a ser único y no se puede repetir//
+1.Ejercicio uno.
+Todos los datos serán recopilados de alumnos y docentes del Tesoem, dando un total de 90 alumnos 
+y 27 maestros tomar evidencias con fotos.
 
-CREATE TABLE ALUMNOS_TESOEM_T (
-    ID_ALU NUMBER(10) PRIMARY KEY,
-    MATRICULA_ALU NUMBER(10) UNIQUE,
-    NOMBRE VARCHAR2 (30),
-    APELLIDO_PATERNO VARCHAR2(30),
-    APELLIDO_MATERNO VARCHAR2(30),
-    CARRERA VARCHAR2 (60),
-    CONSTRAINT CHK_CARRERA CHECK(CARRERA IN ('ING. SISTEMAS C','ING. SISTEMAS A','LIC. GASTRONOMIA','CONTADOR PUBLICO','ING. ADMINISTRACION','ING. EN ER','ING. INDRUSTRIAL','ING. TICS')),
-    GRUPO NVARCHAR2(6),
-    SEMESTRE NUMBER (3),
-    EDIFICIO VARCHAR(2),
-    PROMEDIO_PASADO VARCHAR(5)
+create table t_alumnos_tesoem(
+id_alumnos number (10) PRIMARY KEY not null ,
+matricula number(30) not null,
+nombre varchar2 (50)not null,
+a_paterno varchar2(50) not null,
+a_materno varchar2(50) not null,
+carrera varchar2(50),
+grupo nvarchar2(50)not null,
+semestre number(10) not null,
+edificio varchar2(10) not null,
+promedio number (10)not null);
+
+
+create table t_carrera_ISC(
+id_carrera_isc NUMBER(10) not null,
+matricula number (30) not null ,
+nombre varchar2 (50),
+carrera varchar(50),
+grupo nvarchar2(50) ,
+semestre number (10),
+edificio varchar2(10),
+promedio varchar(10));
+
+create table t_carrera_AD(
+id_carrera_AD NUMBER(10) not null,
+matricula number (30) not null ,
+nombre varchar2 (50),
+carrera varchar2(50),
+grupo nvarchar2(50) ,
+semestre number (10),
+edificio varchar2(10),
+promedio varchar(10));
+
+create table t_carrera_Gastronomia(
+id_carrera_Gastronomia NUMBER(10) not null,
+matricula number (30) not null ,
+nombre varchar2 (50),
+carrera varchar(50),
+grupo nvarchar2(50) ,
+semestre number (10),
+edificio varchar2(10),
+promedio varchar(10));
+
+create table t_carrera_II(
+II_carrera_id NUMBER(10) not null,
+matricula number (30) not null ,
+nombre varchar2 (50),
+carrera varchar(50),
+grupo nvarchar2(50) ,
+semestre number (10),
+edificio varchar2(10),
+promedio varchar(10));
+
+create table t_carrera_IA(
+id_carrera_IA NUMBER(10) not null,
+matricula number (30) not null ,
+nombre varchar2 (50),
+carrera varchar(50),
+grupo nvarchar2(50),
+semestre number (10),
+edificio varchar2(10),
+promedio varchar(10));
+
+create table t_carrera_Automotriz(
+id_carrera_Automotriz NUMBER(10) not null,
+matricula number (30) not null ,
+nombre varchar2 (50),
+carrera varchar(50),
+grupo nvarchar2(50) ,
+semestre number (10),
+edificio varchar2(10),
+promedio varchar(10));
+
+create table t_carrera_CP(
+id_carrera_CP NUMBER(10) not null,
+matricula number (30) not null ,
+nombre varchar2 (50),
+carrera varchar2(50),
+grupo nvarchar2(50) ,
+semestre number (10),
+edificio varchar2(10),
+promedio varchar(10));
+
+
+create table t_carrera_TICS(
+id_carrera_TICS NUMBER(10) not null,
+matricula number (30) not null ,
+nombre varchar2 (50),
+carrera varchar(50),
+grupo nvarchar2(50) ,
+semestre number (10),
+edificio varchar2(10),
+promedio varchar(10));
+
+
+
+create table t_carrera_ER(
+id_carrera_ER NUMBER(10) not null,
+matricula number (30) not null ,
+nombre varchar2 (50),
+carrera varchar2(50),
+grupo nvarchar2(50) ,
+semestre number (10),
+edificio varchar2(10),
+promedio varchar(10));
+
+
+execute ap_alumnos_3 (036,210020100,'Said','Quiñones','Moran','Gastronomia','3G21',3,'C',75);
+EXECUTE pa_profesores_2 (30,'Beatriz','Cortez','Rodriguez','IAD' ,'Capital Humano II','5AD11');
+execute ap_alumnos (017,216020028,'Josue','Crisanto','Espinoza', 'Computacionales','3S11',3,'B',70);
+
+
+SELECT  a.matricula as "Matricula",a.a_paterno||' '||a.a_materno ||' '|| a.nombre as "Nombre del Alumno",a.promedio as "Promedio", a.semestre,a.carrera 
+FROM t_alumnos_tesoem a
+left join t_carrera_ISC ISC on a.id_alumnos = isc.id_carrera_isc
+left join t_carrera_IA IA on a.id_alumnos = ia.id_carrera_ia
+left join t_carrera_II Ind on a.id_alumnos = ind.ii_carrera_id
+left join t_carrera_Gastronomia LG on a.id_alumnos = lg.id_carrera_gastronomia
+left join t_carrera_AD AD on a.id_alumnos = ad.id_carrera_AD
+left join t_carrera_Automotriz Aut on a.id_alumnos = aut.id_carrera_Automotriz
+left join t_carrera_CP CP on a.id_alumnos = cp.id_carrera_CP
+left join t_carrera_TICS TICS on a.id_alumnos = tics.id_carrera_TICS
+left join t_carrera_ER ER on a.id_alumnos = er.id_carrera_ER
+where a.semestre='3'; 
+
+
+----------------------------PROFESORES-----------------------------------------------
+
+2.Ejercicio dos.
+
+create table t_profesores_tesoem(
+    id_profesores number(10) primary key,
+    nombre nvarchar2(60),
+    apellido_PP nvarchar2(60),
+    apellido_MP nvarchar2(60),
+    carrera_imparte nvarchar2(50),
+    nombre_clase nvarchar2(50),
+    grupo varchar(9)
 );
 
-CREATE TABLE ISC_T (
-    ISC NVARCHAR2(60),
-    ID_ALU_S NUMBER(10),
-    CONSTRAINT FK_ID_ALU_S FOREIGN KEY(ID_ALU_S) REFERENCES ALUMNOS_TESOEM_T(ID_ALU), 
-    MATRICULA_ALU NUMBER(10),
-    NOMBRE VARCHAR2 (100),
-    GRUPO NVARCHAR2(6),
-    SEMESTRE NUMBER (3),
-    EDIFICIO VARCHAR(2),
-    PROMEDIO_PASADO VARCHAR(5)
-);
-CREATE TABLE ADMIN_T (
-    ADMI NVARCHAR2(60),
-    ID_ALU_A NUMBER(10),
-    CONSTRAINT FK_ID_ALU_A FOREIGN KEY(ID_ALU_A) REFERENCES ALUMNOS_TESOEM_T(ID_ALU), 
-    MATRICULA_ALU NUMBER(10),
-    NOMBRE VARCHAR2 (100),
-    GRUPO NVARCHAR2(6),
-    SEMESTRE NUMBER (3),
-    EDIFICIO VARCHAR(2),
-    PROMEDIO_PASADO VARCHAR(5)
+
+
+
+create table ISC_profesores (
+    ISC nvarchar2(100),
+    id_isc_p number(30),
+    nombre varchar2 (100),
+    grupo nvarchar2(10)
 );
 
-CREATE TABLE GAS_T (
-    GAS NVARCHAR2(60),
-    ID_ALU_G NUMBER(10),
-    CONSTRAINT FK_ID_ALU_G FOREIGN KEY(ID_ALU_G) REFERENCES ALUMNOS_TESOEM_T(ID_ALU), 
-    MATRICULA_ALU NUMBER(10),
-    NOMBRE VARCHAR2 (100),
-    GRUPO NVARCHAR2(6),
-    SEMESTRE NUMBER (3),
-    EDIFICIO VARCHAR(2),
-    PROMEDIO_PASADO VARCHAR(5)
-);
-CREATE TABLE IND_T (
-    IND NVARCHAR2(60),
-    ID_ALU_I NUMBER(10),
-    CONSTRAINT FK_ID_ALU_I FOREIGN KEY(ID_ALU_I) REFERENCES ALUMNOS_TESOEM_T(ID_ALU), 
-    MATRICULA_ALU NUMBER(10),
-    NOMBRE VARCHAR2 (100),
-    GRUPO NVARCHAR2(6),
-    SEMESTRE NUMBER (3),
-    EDIFICIO VARCHAR(2),
-    PROMEDIO_PASADO VARCHAR(5)
-);
-CREATE TABLE ENER_T (
-    ENER NVARCHAR2(60),
-    ID_ALU_E NUMBER(10),
-    CONSTRAINT FK_ID_ALU_E FOREIGN KEY(ID_ALU_E) REFERENCES ALUMNOS_TESOEM_T(ID_ALU), 
-    MATRICULA_ALU NUMBER(10),
-    NOMBRE VARCHAR2 (100),
-    GRUPO NVARCHAR2(6),
-    SEMESTRE NUMBER (3),
-    EDIFICIO VARCHAR(2),
-    PROMEDIO_PASADO VARCHAR(5)
+create table AD_profesores (
+    ISC nvarchar2(100),
+    id_isc_p number(30),
+    nombre varchar2 (100),
+    grupo nvarchar2(10)
 );
 
-CREATE TABLE CON_T (
-    CONT NVARCHAR2(60),
-    ID_ALU_C NUMBER(10),
-    CONSTRAINT FK_ID_ALU_C FOREIGN KEY(ID_ALU_C) REFERENCES ALUMNOS_TESOEM_T(ID_ALU), 
-    MATRICULA_ALU NUMBER(10),
-    NOMBRE VARCHAR2 (100),
-    GRUPO NVARCHAR2(6),
-    SEMESTRE NUMBER (3),
-    EDIFICIO VARCHAR(2),
-    PROMEDIO_PASADO VARCHAR(5)
+create table Gastronomia_profesores (
+    ISC nvarchar2(100),
+    id_isc_p number(30),
+    nombre varchar2 (100),
+    grupo nvarchar2(10)
 );
-CREATE TABLE AUTO_T (
-    AUT NVARCHAR2(60),
-    ID_ALU_AU NUMBER(10),
-    CONSTRAINT FK_ID_ALU_AU FOREIGN KEY(ID_ALU_AU) REFERENCES ALUMNOS_TESOEM_T(ID_ALU), 
-    MATRICULA_ALU NUMBER(10),
-    NOMBRE VARCHAR2 (100),
-    GRUPO NVARCHAR2(6),
-    SEMESTRE NUMBER (3),
-    EDIFICIO VARCHAR(2),
-    PROMEDIO_PASADO VARCHAR(5)
+create table II_profesores (
+    ISC nvarchar2(100),
+    id_isc_p number(30),
+    nombre varchar2 (100),
+    grupo nvarchar2(10)
+);
+create table IA_profes (
+    ISC nvarchar2(100),
+    id_isc_p number(30),
+    nombre varchar2 (100),
+    grupo nvarchar2(10)
+);
+create table Automotriz_profesores (
+    ISC nvarchar2(100),
+    id_isc_p number(30),
+    nombre varchar2 (100),
+    grupo nvarchar2(10)
 );
 
-CREATE TABLE TIC_T (
-    TIC NVARCHAR2(60),
-    ID_ALU_T NUMBER(10),
-    CONSTRAINT FK_ID_ALU_T FOREIGN KEY(ID_ALU_T) REFERENCES ALUMNOS_TESOEM_T(ID_ALU), 
-    MATRICULA_ALU NUMBER(10),
-    NOMBRE VARCHAR2 (100),
-    GRUPO NVARCHAR2(6),
-    SEMESTRE NUMBER (3),
-    EDIFICIO VARCHAR(2),
-    PROMEDIO_PASADO VARCHAR(5)
+create table CP_profesores (
+    ISC nvarchar2(100),
+    id_isc_p number(30),
+    nombre varchar2 (100),
+    grupo nvarchar2(10)
 );
-// __CREATE OR REPLACE PROCEDURE para crear un procedimiento almacenado o para actualizar un procedimiento existente con un nuevo tipo de retorno__//
-// |’ ’| sirve para concatenar los datos almacenados// 
-// EXECUTE lo usamos para ejecutar el programa//
-//El insert into nos inserta los datos que deseamos almacenar//
-// SELECT * FROM para mostrar la tabla//
-// DELETE FROM elimina registros de una tabla//
-// El LEFT JOIN se usa para hacer coincidir registros en una tabla con otra tabla//
-// EXECUTE para ejecutar el programa//
+create table TICS_profesores (
+    ISC nvarchar2(100),
+    id_isc_p number(30),
+    nombre varchar2 (100),
+    grupo nvarchar2(10)
+);
+create table IA_profesores (
+    ISC nvarchar2(100),
+    id_isc_p number(30),
+    nombre varchar2 (100),
+    grupo nvarchar2(10)
+);
+create table ER_profesores (
+    ISC nvarchar2(100),
+    id_isc_p number(30),
+    nombre varchar2 (100),
+    grupo nvarchar2(10)
+);
 
-CREATE OR REPLACE PROCEDURE ALAMCENA_ALU_P
-    (ID_ALU_P IN NUMBER, MATRICULA_ALU_P IN NUMBER,NOMBRE_P IN VARCHAR2,APELLIDO_PATERNO_P IN VARCHAR2,APELLIDO_MATERNO_P IN VARCHAR2,CARRERA_P IN VARCHAR2,GRUPO_P IN VARCHAR,SEMESTRE_P IN NUMBER,EDIFICIO_P IN VARCHAR,PROMEDIO_PASADO_P IN VARCHAR DEFAULT '0')
-AS 
+
+create or replace procedure pa_profesores_1
+    (id_profesores in number,nombre in nvarchar2,apellido_p in nvarchar2,apellido_m in  nvarchar2,carrera_imparte in nvarchar2,nombre_classe in nvarchar2,grupo in nvarchar2) 
+as
+begin
+    insert into t_profesores_tesoem values (id_profesores,nombre,apellido_p,apellido_m,carrera_imparte,nombre_classe,grupo);
+    if carrera_imparte = 'Computacionales' then 
+        insert into ISC_profesores values (carrera_imparte,id_profesores,nombre || ' ' || apellido_p || ' ' || apellido_m, grupo);
+    end if; 
+     if carrera_imparte = 'IAD' then 
+        insert into AD_profesores values (carrera_imparte,id_profesores,nombre || ' ' || apellido_p || ' ' || apellido_m, grupo);
+    end if; 
+    
+     if carrera_imparte = 'Gastronomia' then 
+        insert into Gastronomia_profesores values (carrera_imparte,id_profesores,nombre || ' ' || apellido_p || ' ' || apellido_m, grupo);
+    end if;
+     if carrera_imparte = 'I-Ind' then 
+        insert into II_profesores values (carrera_imparte,id_profesores,nombre || ' ' || apellido_p || ' ' || apellido_m, grupo);
+    end if;
+   if carrera_imparte = 'IA' then 
+        insert into IA_profesores values (carrera_imparte,id_profesores,nombre || ' ' || apellido_p || ' ' || apellido_m, grupo);
+    end if;
+       insert into t_profesores_tesoem values (id_profesores,nombre,apellido_p,apellido_m,carrera_imparte,nombre_classe,grupo);
+    if carrera_imparte = 'Automotriz' then 
+        insert into Automotriz_profesores values (carrera_imparte,id_profesores,nombre || ' ' || apellido_p || ' ' || apellido_m, grupo);
+    end if;
+     if carrera_imparte = 'Con-Publico' then 
+        insert into CP_profesores values (carrera_imparte,id_profesores,nombre || ' ' || apellido_p || ' ' || apellido_m, grupo);
+    end if;
+     if carrera_imparte = 'Tecno-TICS' then 
+        insert into TICS_profesores values (carrera_imparte,id_profesores,nombre || ' ' || apellido_p || ' ' || apellido_m, grupo);
+    end if;
+       if carrera_imparte = 'I-energiaaRenova' then 
+        insert into ER_profesores values (carrera_imparte,id_profesores,nombre || ' ' || apellido_p || ' ' || apellido_m, grupo);
+    end if;
+    end;
+    
+
+        
+
+        
+
+create or replace procedure ap_alumnos(a_matricula in number,
+a_id in number ,a_nombre in varchar2,a_apellidoP in varchar2,a_apellidoM in varchar2,a_carrera in varchar2,a_grupo in nvarchar2,a_semestre in number,a_edificio in varchar2,a_promedio in number default '0')
+as begin
+insert into t_alumnos_tesoem values (a_matricula,a_id  ,a_nombre,a_apellidoP,a_apellidoM,a_carrera ,a_grupo ,a_semestre ,a_edificio ,a_promedio );
+if a_carrera='Computacionales' then
+insert into t_carrera_ISC values (a_matricula,a_id ,a_nombre||' '||a_apellidoP||' '||a_apellidoM ,a_carrera ,a_grupo ,a_semestre,a_edificio,a_promedio);
+end if;
+if a_carrera='IAD' then
+insert into t_carrera_AD values (a_matricula,a_id ,a_nombre||' '||a_apellidoP||' '||a_apellidoM,a_carrera ,a_grupo ,a_semestre,a_edificio,a_promedio);
+end if;
+insert into t_alumnos_tesoem values (a_matricula,a_id  ,a_nombre,a_apellidoP,a_apellidoM,a_carrera ,a_grupo ,a_semestre ,a_edificio ,a_promedio );
+if a_carrera='Gastronomia' then
+insert into t_carrera_Gastronomia values (a_matricula,a_id ,a_nombre||' '||a_apellidoP||' '||a_apellidoM,a_carrera ,a_grupo ,a_semestre,a_edificio,a_promedio);
+end if;
+if a_carrera='I-Ind' then
+insert into t_carrera_II values (a_matricula,a_id ,a_nombre||' '||a_apellidoP||' '||a_apellidoM,a_carrera ,a_grupo ,a_semestre,a_edificio,a_promedio);
+end if;
+if a_carrera='IA' then
+insert into t_carrera_IA values (a_matricula,a_id ,a_nombre||' '||a_apellidoP||' '||a_apellidoM,a_carrera ,a_grupo ,a_semestre,a_edificio,a_promedio);
+end if;
+if a_carrera='Automotriz' then
+insert into t_carrera_Automotriz values (a_matricula,a_id ,a_nombre||' '||a_apellidoP||' '||a_apellidoM,a_carrera ,a_grupo ,a_semestre,a_edificio,a_promedio);
+end if;
+if a_carrera='Con-Publico' then
+insert into t_carrera_CP values ( a_matricula,a_id,a_nombre||' '||a_apellidoP||' '||a_apellidoM,a_carrera ,a_grupo , a_semestre,a_edificio,a_promedio);
+end if;
+if a_carrera='I-energiaaRenova' then
+insert into t_carrera_ER values (a_matricula,a_id ,a_nombre||' '||a_apellidoP||' '||a_apellidoM,a_carrera ,a_grupo ,a_semestre,a_edificio,a_promedio);
+end if;
+if a_carrera='Tecno-TICS' then
+insert into t_carrera_TICS values (a_matricula,a_id ,a_nombre||' '||a_apellidoP||' '||a_apellidoM,a_carrera ,a_grupo ,a_semestre,a_edificio,a_promedio);
+end if;
+end;
+
+
+-----------------------------------BECAS--------------------------------------------------
+drop procedure becas; 
+drop table beca_a;
+
+create table beca_a (
+    matricula number(10) unique,
+    nombre varchar2 (100),
+    promedio varchar(5),
+    beca varchar2 (60),
+    CONSTRAINT chk_beca CHECK(beca in ('No tiene beca','10%','30%','50%','100%'))
+);
+select * from beca_a;
+
+
+CREATE OR REPLACE PROCEDURE becas IS
+    CURSOR cr_alumnos IS
+        SELECT matricula, nombre,a_paterno,a_materno , promedio
+        FROM t_alumnos_tesoem;  aa_matricula beca_a.matricula%TYPE;aa_nombre beca_a.nombre%TYPE;aa_apellidoP beca_a.nombre%TYPE;
+    aa_apellidoM beca_a.nombre%TYPE; aa_promedio t_alumnos_tesoem.promedio%TYPE;aa_beca beca_a.beca%TYPE;
 BEGIN
-    INSERT INTO ALUMNOS_TESOEM_T VALUES (ID_ALU_P, MATRICULA_ALU_P, NOMBRE_P, APELLIDO_PATERNO_P, APELLIDO_MATERNO_P, CARRERA_P, GRUPO_P,SEMESTRE_P,EDIFICIO_P,PROMEDIO_PASADO_P);
-    IF CARRERA_P = 'ING. SISTEMAS C' THEN 
-        INSERT INTO ISC_T VALUES (CARRERA_P,ID_ALU_P,MATRICULA_ALU_P,NOMBRE_P || ' ' || APELLIDO_PATERNO_P || ' ' || APELLIDO_MATERNO_P, GRUPO_P,SEMESTRE_P,EDIFICIO_P,PROMEDIO_PASADO_P);
-    END IF; 
-    IF CARRERA_P = 'ING. SISTEMAS A' THEN 
-        INSERT INTO AUTO_T VALUES (CARRERA_P,ID_ALU_P,MATRICULA_ALU_P,NOMBRE_P || ' ' || APELLIDO_PATERNO_P || ' ' || APELLIDO_MATERNO_P, GRUPO_P,SEMESTRE_P,EDIFICIO_P,PROMEDIO_PASADO_P);
-    END IF; 
-    IF CARRERA_P = 'LIC. GASTRONOMIA' THEN 
-        INSERT INTO GAS_T VALUES (CARRERA_P,ID_ALU_P,MATRICULA_ALU_P,NOMBRE_P || ' ' || APELLIDO_PATERNO_P || ' ' || APELLIDO_MATERNO_P, GRUPO_P,SEMESTRE_P,EDIFICIO_P,PROMEDIO_PASADO_P);
-    END IF; 
-    IF CARRERA_P = 'CONTADOR PUBLICO' THEN 
-        INSERT INTO CON_T VALUES (CARRERA_P,ID_ALU_P,MATRICULA_ALU_P,NOMBRE_P || ' ' || APELLIDO_PATERNO_P || ' ' || APELLIDO_MATERNO_P, GRUPO_P,SEMESTRE_P,EDIFICIO_P,PROMEDIO_PASADO_P);
-    END IF; 
-    IF CARRERA_P = 'ING. ADMINISTRACION' THEN 
-        INSERT INTO ADMIN_T VALUES (CARRERA_P,ID_ALU_P,MATRICULA_ALU_P,NOMBRE_P || ' ' || APELLIDO_PATERNO_P || ' ' || APELLIDO_MATERNO_P, GRUPO_P,SEMESTRE_P,EDIFICIO_P,PROMEDIO_PASADO_P);
-    END IF; 
-    IF CARRERA_P = 'ING. EN ER' THEN 
-        INSERT INTO ENER_T VALUES (CARRERA_P,ID_ALU_P,MATRICULA_ALU_P,NOMBRE_P || ' ' || APELLIDO_PATERNO_P || ' ' || APELLIDO_MATERNO_P, GRUPO_P,SEMESTRE_P,EDIFICIO_P,PROMEDIO_PASADO_P);
-    END IF; 
-    IF CARRERA_P = 'ING. INDRUSTRIAL' THEN 
-        INSERT INTO IND_T VALUES (CARRERA_P,ID_ALU_P,MATRICULA_ALU_P,NOMBRE_P || ' ' || APELLIDO_PATERNO_P || ' ' || APELLIDO_MATERNO_P, GRUPO_P,SEMESTRE_P,EDIFICIO_P,PROMEDIO_PASADO_P);
-    END IF; 
-    IF CARRERA_P = 'ING. TICS' THEN 
-        INSERT INTO TIC_T VALUES (CARRERA_P,ID_ALU_P,MATRICULA_ALU_P,NOMBRE_P || ' ' || APELLIDO_PATERNO_P || ' ' || APELLIDO_MATERNO_P, GRUPO_P,SEMESTRE_P,EDIFICIO_P,PROMEDIO_PASADO_P);
-    END IF; 
-END;
-
-DROP PROCEDURE ALAMCENA_ALU_P;
-DELETE FROM ALUMNOS_TESOEM_T WHERE  CARRERA='ING. SISTEMAS A';
-
-SELECT * FROM  ALUMNOS_TESOEM_T;
-SELECT * FROM  ISC_T;
-SELECT * FROM  GAS_T;
-SELECT * FROM  CON_T;
-SELECT * FROM  ENER_T;
-SELECT * FROM  IND_T;
-SELECT * FROM  TIC_T;
-SELECT * FROM  ADMIN_T;
-SELECT * FROM  AUTO_T;
-DELETE FROM AUTO_T WHERE MATRICULA_ALU= 229020101;
-DELETE FROM ALUMNOS_TESOEM_T  WHERE MATRICULA_ALU= 229020101;
-
-/************FIN CONSULTA SEMESTRES IGUALES*********/
-    SELECT A.MATRICULA_ALU AS MATRICULA,A.APELLIDO_PATERNO || ' ' ||A.APELLIDO_MATERNO|| ' ' ||  A.NOMBRE AS NOMBRE, A.PROMEDIO_PASADO AS PROMEDIO, A.SEMESTRE,A.CARRERA
-    FROM ALUMNOS_TESOEM_T A
-    LEFT JOIN ISC_T ISC ON A.ID_ALU = ISC.ID_ALU_S
-    LEFT JOIN ADMIN_T AD ON A.ID_ALU = AD.ID_ALU_A
-    LEFT JOIN GAS_T GAS ON A.ID_ALU = GAS.ID_ALU_G
-    LEFT JOIN IND_T IND ON A.ID_ALU = IND.ID_ALU_I
-    LEFT JOIN ENER_T ENER ON A.ID_ALU = ENER.ID_ALU_E
-    LEFT JOIN CON_T CON ON A.ID_ALU = CON.ID_ALU_C
-    LEFT JOIN AUTO_T AUTO ON A.ID_ALU = AUTO.ID_ALU_AU
-    LEFT JOIN TIC_T TIC ON A.ID_ALU = TIC.ID_ALU_T
-    WHERE A.SEMESTRE = '6';
-/************FIN CONSULTA SEMESTRES IGUALES*********/
-EXECUTE ALMACENA_ALU_P 
-
-
-
-2.	CREAR UNA TABLA DE PROFESORES_TESOEM
-//CREAMOS UNA TABLA DE PROFESORES DE CADA UNA DE LAS CARRERAS EN DONDE SE VA A DECLARAR CADA DATO QUE SE VA A INSERTAR EN DICHA TABLA//
-//USAMOS UN CONSTRAINT EN EL CUAL ESPECIFICA UN VALOR ESPECIFICO QUE EVITA MANDAR DATOS ERRÓNEOS//
-// EXECUTE LO USAMOS PARA EJECUTAR EL PROGRAMA//
-//|' '| concatena//
-
-
-CREATE TABLE ISC_PROFES_T (
-    ISC NVARCHAR2(60),
-    ID_ALU_P NUMBER(10),
-    NOMBRE VARCHAR2 (100),
-    GRUPO NVARCHAR2(6)
-);
-
-CREATE TABLE ADMIN_PROFES_T (
-    ISC NVARCHAR2(60),
-    ID_ALU_P NUMBER(10),
-    NOMBRE VARCHAR2 (100),
-    GRUPO NVARCHAR2(6)
-);
-
-CREATE TABLE GAS_PROFES_T (
-    ISC NVARCHAR2(60),
-    ID_ALU_P NUMBER(10),
-    NOMBRE VARCHAR2 (100),
-    GRUPO NVARCHAR2(6)
-);
-CREATE TABLE IND_PROFES_T (
-    ISC NVARCHAR2(60),
-    ID_ALU_P NUMBER(10),
-    NOMBRE VARCHAR2 (100),
-    GRUPO NVARCHAR2(6)
-);
-CREATE TABLE ENER_PROFES_T (
-    ISC NVARCHAR2(60),
-    ID_ALU_P NUMBER(10),
-    NOMBRE VARCHAR2 (100),
-    GRUPO NVARCHAR2(6)
-);
-
-CREATE TABLE CON_PROFES_T (
-    ISC NVARCHAR2(60),
-    ID_ALU_P NUMBER(10),
-    NOMBRE VARCHAR2 (100),
-    GRUPO NVARCHAR2(6)
-);
-CREATE TABLE AUTO_PROFES_T (
-    ISC NVARCHAR2(60),
-    ID_ALU_P NUMBER(10),
-    NOMBRE VARCHAR2 (100),
-    GRUPO NVARCHAR2(6)
-);
-
-CREATE TABLE TIC_PROFES_T (
-    ISC NVARCHAR2(60),
-    ID_ALU_P NUMBER(10),
-    NOMBRE VARCHAR2 (100),
-    GRUPO NVARCHAR2(6)
-);
-
-CREATE TABLE PROFESORES_TESOEM_T(
-    ID_PROF NUMBER(10) PRIMARY KEY,
-    NUMERO_EMPLEADO NUMBER(6),
-    NOMBRE NVARCHAR2(60),
-    APELLIDO_P NVARCHAR2(60),
-    APELLIDO_M NVARCHAR2(60),
-    CARRERA_IMPARTE NVARCHAR2(50),
-    CONSTRAINT CHK_CARRERA_IMPARTE CHECK(CARRERA_IMPARTE IN ('ING. SISTEMAS C','ING. SISTEMAS A','LIC. GASTRONOMIA','CONTADOR PUBLICO','ING. ADMINISTRACION','ING. EN ER','ING. INDRUSTRIAL','ING. TICS')),
-    NOMBRE_CLASSE NVARCHAR2(50),
-    GRUPO VARCHAR(9)
-);
-SELECT * FROM TIC_PROFES_T; 
-DROP TABLE PROFESORES_TESOEM_T;
-DELETE FROM PROFESORES_TESOEM_T;
-
-CREATE OR REPLACE PROCEDURE MAESTRO_INSERT_P 
-    (ID_PROF IN NUMBER, NUMERO_EMPLEADO IN NUMBER,NOMBRE IN NVARCHAR2,APELLIDO_P IN NVARCHAR2,APELLIDO_M IN  NVARCHAR2,CARRERA_IMPARTE IN NVARCHAR2,NOMBRE_CLASSE IN NVARCHAR2,GRUPO IN NVARCHAR2) 
-AS
-BEGIN
-    INSERT INTO PROFESORES_TESOEM_T VALUES (ID_PROF, NUMERO_EMPLEADO,NOMBRE,APELLIDO_P,APELLIDO_M,CARRERA_IMPARTE,NOMBRE_CLASSE,GRUPO);
-    IF CARRERA_IMPARTE = 'ING. SISTEMAS C' THEN 
-        INSERT INTO ISC_PROFES_T VALUES (CARRERA_IMPARTE,ID_PROF,NOMBRE || ' ' || APELLIDO_P || ' ' || APELLIDO_M, GRUPO);
-    END IF; 
-    IF CARRERA_IMPARTE = 'ING. SISTEMAS A' THEN 
-        INSERT INTO AUTO_PROFES_T VALUES (CARRERA_IMPARTE,ID_PROF,NOMBRE || ' ' || APELLIDO_P || ' ' || APELLIDO_M, GRUPO);
-    END IF; 
-    IF CARRERA_IMPARTE = 'LIC. GASTRONOMIA' THEN 
-        INSERT INTO GAS_PROFES_T VALUES (CARRERA_IMPARTE,ID_PROF,NOMBRE || ' ' || APELLIDO_P || ' ' || APELLIDO_M, GRUPO);
-    END IF; 
-    IF CARRERA_IMPARTE = 'CONTADOR PUBLICO' THEN 
-        INSERT INTO CON_PROFES_T VALUES (CARRERA_IMPARTE,ID_PROF,NOMBRE || ' ' || APELLIDO_P || ' ' || APELLIDO_M, GRUPO);
-    END IF; 
-    IF CARRERA_IMPARTE = 'ING. ADMINISTRACION' THEN 
-        INSERT INTO ADMIN_PROFES_T VALUES (CARRERA_IMPARTE,ID_PROF,NOMBRE || ' ' || APELLIDO_P || ' ' || APELLIDO_M, GRUPO);
-    END IF; 
-    IF CARRERA_IMPARTE = 'ING. EN ER' THEN 
-        INSERT INTO ENER_PROFES_T VALUES (CARRERA_IMPARTE,ID_PROF,NOMBRE || ' ' || APELLIDO_P || ' ' || APELLIDO_M, GRUPO);
-    END IF; 
-    IF CARRERA_IMPARTE = 'ING. INDRUSTRIAL' THEN 
-        INSERT INTO IND_PROFES_T VALUES (CARRERA_IMPARTE,ID_PROF,NOMBRE || ' ' || APELLIDO_P || ' ' || APELLIDO_M, GRUPO);
-    END IF; 
-    IF CARRERA_IMPARTE = 'ING. TICS' THEN 
-        INSERT INTO TIC_PROFES_T VALUES (CARRERA_IMPARTE,ID_PROF,NOMBRE || ' ' || APELLIDO_P || ' ' || APELLIDO_M, GRUPO);
-    END IF; 
-END;
-
-EXECUTE MAESTRO_INSERT_P();
-
-
-3.	Hacer un proceso almacenado para determinar si son aptos a tener becas los alumnos del tesoem. En base a la tabla de alumnos tesoem y al porcentaje que pide la escuela para que estos sean
-acreedores a tener una beca.
-//se crea una tabla de alumnos //
-//créate or replace declaramos que tipo de alumno es el que va a recibir beca dependiendo el promedio que tenga cada uno//
-// Ejecuta el programa y nos lanza los resultados de los datos declarados//
-CREATE TABLE BECA_ALU_T (
-    MATRICULA_ALU NUMBER(10) UNIQUE,
-    NOMBRE VARCHAR2 (100),
-    PROMEDIO_PASADO VARCHAR(5),
-    BECA VARCHAR2 (60),
-    CONSTRAINT CHK_BECA CHECK(BECA IN ('NO APTO','10%','30%','50%','100%'))
-);
-SELECT * FROM BECA_ALU_T;
-DELETE FROM BECA_ALU_T WHERE BECA!='NO APTO';
-
-CREATE OR REPLACE PROCEDURE DETERMINAR_APTO_BECA_ALL IS
-    CURSOR C_ALUMNOS IS
-        SELECT MATRICULA_ALU, NOMBRE,APELLIDO_PATERNO,APELLIDO_MATERNO , PROMEDIO_PASADO
-        FROM ALUMNOS_TESOEM_T;
-    V_MATRICULA_ALU BECA_ALU_T.MATRICULA_ALU%TYPE;
-    V_NOMBRE BECA_ALU_T.NOMBRE%TYPE;
-    V_APELLIDO_P BECA_ALU_T.NOMBRE%TYPE;
-    V_APELLIDO_M BECA_ALU_T.NOMBRE%TYPE;
-    V_PROMEDIO ALUMNOS_TESOEM_T.PROMEDIO_PASADO%TYPE;
-    V_BECA BECA_ALU_T.BECA%TYPE;
-BEGIN
-    -- ABRIR EL CURSOR Y RECORRER LOS REGISTROS
-    OPEN C_ALUMNOS;
+    -- Abrir el cursor y recorrer los registros
+    OPEN cr_alumnos;
     LOOP
-        FETCH C_ALUMNOS INTO V_MATRICULA_ALU, V_NOMBRE,V_APELLIDO_P,V_APELLIDO_M, V_PROMEDIO;
-        EXIT WHEN C_ALUMNOS%NOTFOUND;
-        
-        -- DETERMINAR LA BECA
-        IF V_PROMEDIO > 90 THEN
-            V_BECA := '100%';
-        ELSIF V_PROMEDIO > 80 THEN
-            V_BECA := '50%';
-        ELSIF V_PROMEDIO > 70 THEN
-            V_BECA := '30%';
-        ELSIF V_PROMEDIO > 60 THEN
-            V_BECA := '10%';
+        FETCH cr_alumnos INTO aa_matricula, aa_nombre,aa_apellidoP,aa_apellidoM, aa_promedio;
+        EXIT WHEN cr_alumnos%NOTFOUND;
+        IF aa_promedio > 90 THEN
+            aa_beca := '100%';
+        ELSIF aa_promedio > 80 THEN
+            aa_beca := '50%';
+        ELSIF aa_promedio > 70 THEN
+            aa_beca := '30%';
+        ELSIF aa_promedio > 60 THEN
+            aa_beca := '10%';
         ELSE
-            V_BECA := 'NO APTO';
+            aa_beca := 'No tiene beca';
         END IF;
-        
-        -- INSERTAR EN LA TABLA BECA_ALU_T
-        INSERT INTO BECA_ALU_T (MATRICULA_ALU, NOMBRE, PROMEDIO_PASADO, BECA)
-        VALUES (V_MATRICULA_ALU, V_NOMBRE || ' ' || V_APELLIDO_P || ' ' || V_APELLIDO_M, V_PROMEDIO, V_BECA);
-    END LOOP;
-    -- CERRAR EL CURSOR
-    CLOSE C_ALUMNOS;
+        INSERT INTO beca_a (matricula, nombre, promedio, beca)
+        VALUES (aa_matricula,aa_nombre || ' ' || aa_apellidoP || ' ' || aa_apellidoM, aa_promedio, aa_beca);
+    END LOOP; CLOSE cr_alumnos;
 END;
-EXECUTE DETERMINAR_APTO_BECA_ALL; 
+execute becas;
